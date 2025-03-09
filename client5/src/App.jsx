@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Cart from './components/Cart'
+import Checkout from './components/Checkout';
+import Home from './components/Home'
+import Login from './components/Login'
+import Order from './components/Order'
+import ProductCard from './components/ProductCard';
+import ProductList from './components/ProductList';
+import Profile from './components/Profile';
+import Register from './components/Register';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
+const App = () => {
+    return (
+      <Router>
+        <Navbar /> 
+        <div className="app-container">
+          <Switch>
+           
+            <Route path="/" exact>
+              <h1>Welcome to the Multi-Vendor Marketplace</h1>
+            </Route>
+  
+            <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/productcard" component={ProductCard} />
+            <Route path="/productlist" component={ProductList} />
+            <Route path="/home" component={Home} />
+  
+            {/* Protected Routes */}
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/order/:orderId" component={Order} />
+           
+          </Switch>
+        </div>
+        <Footer /> 
+      </Router>
+    );
+  };
+  
+  export default App;
